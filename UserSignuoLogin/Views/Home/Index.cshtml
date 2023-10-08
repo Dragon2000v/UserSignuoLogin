@@ -6,50 +6,45 @@
 
 <h2>Користувачi</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.full_name)
+            @Html.ActionLink("Имя", "Index", new { sortField = "full_name", sortOrder = ViewBag.SortField == "full_name" && ViewBag.SortOrder == "asc" ? "desc" : "asc" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.age)
+            @Html.ActionLink("Возраст", "Index", new { sortField = "age", sortOrder = ViewBag.SortField == "age" && ViewBag.SortOrder == "asc" ? "desc" : "asc" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.regional_center)
+            @Html.ActionLink("Регион", "Index", new { sortField = "regional_center", sortOrder = ViewBag.SortField == "regional_center" && ViewBag.SortOrder == "asc" ? "desc" : "asc" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.email)
+            Email
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.phone)
+            Телефон
         </th>
-        
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.full_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.age)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.regional_center)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phone)
-        </td>
-       
-       
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.full_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.regional_center)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+        </tr>
+    }
 
 </table>

@@ -13,6 +13,8 @@ namespace UserSignuoLogin.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web.Mvc;
+    using CompareAttribute = System.Web.Mvc.CompareAttribute;
 
     public partial class UserInf
     {
@@ -23,9 +25,11 @@ namespace UserSignuoLogin.Models
         [Required(ErrorMessage = "Поле не повинно бути порожнiм")]
         [Display(Name = "Вiк")]
         public int age { get; set; }
+       // public List<SelectListItem> AvailableCities { get; set; }
         [Required(ErrorMessage = "Поле не повинно бути порожнiм")]
         [Display(Name = "Регiональний центр")]
         public string regional_center { get; set; }
+        
         [Required(ErrorMessage = "Поле не повинно бути порожнiм")]
         [Display(Name = "Пошта")]
         public string email { get; set; }
@@ -41,7 +45,8 @@ namespace UserSignuoLogin.Models
         [Display(Name = "Повторiть пароль")]
         [DataType(DataType.Password)]
         [NotMapped]
-        [Compare("password", ErrorMessage = "Паролi не спiвпадають")]
+        [System.ComponentModel.DataAnnotations.Compare("password", ErrorMessage = "Пароли не совпадают")]
         public string RePassword { get; set; }
+
     }
 }

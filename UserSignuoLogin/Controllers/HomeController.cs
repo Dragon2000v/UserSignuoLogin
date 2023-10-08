@@ -11,13 +11,55 @@ namespace UserSignuoLogin.Controllers
     {
         DBuserSingupLoginEntities db = new DBuserSingupLoginEntities();
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(string sortField, string sortOrder)
         {
-            return View(db.UserInfs.ToList());
+            var model = db.UserInfs.ToList();
+            ViewBag.SortField = sortField;
+            ViewBag.SortOrder = sortOrder;
+
+            // Определите направление сортировки
+            bool isDescending = sortOrder == "desc";
+
+            // Выполните сортировку в зависимости от параметра sortField и направления сортировки
+            switch (sortField)
+            {
+                case "full_name":
+                    model = isDescending
+                        ? model.OrderByDescending(item => item.full_name).ToList()
+                        : model.OrderBy(item => item.full_name).ToList();
+                    break;
+                case "age":
+                    model = isDescending
+                        ? model.OrderByDescending(item => item.age).ToList()
+                        : model.OrderBy(item => item.age).ToList();
+                    break;
+                case "regional_center":
+                    model = isDescending
+                        ? model.OrderByDescending(item => item.regional_center).ToList()
+                        : model.OrderBy(item => item.regional_center).ToList();
+                    break;
+                default:
+                    // Если sortField не указан или не соответствует ни одному полю, оставьте данные без сортировки
+                    break;
+            }
+
+            return View(model);
         }
+
+
 
         public ActionResult Signup()
         {
+            var cities = new List<string>
+            {
+                "Kyiv",
+                "Lviv",
+                "Kharkiv",
+                "Odesa",
+                "Dnipro"
+            };
+
+            ViewBag.CityList = new SelectList(cities);
             return View();
         }
 
@@ -31,6 +73,9 @@ namespace UserSignuoLogin.Controllers
             }
             else
             {
+                
+               // userInf.AvailableCities = GetUkraineCities();
+
                 db.UserInfs.Add(userInf);
                 db.SaveChanges();
 
@@ -40,6 +85,7 @@ namespace UserSignuoLogin.Controllers
             }
             
         }
+       
 
         public ActionResult Logout()
         {
